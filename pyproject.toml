@@ -9,6 +9,7 @@ packages = [{include = "homework19"}]
 [tool.poetry.dependencies]
 python = "^3.12"
 django = "^5.0.6"
+psycopg2 = "^2.9.9"
 
 
 [build-system]
