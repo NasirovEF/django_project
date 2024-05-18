@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, connection
 
 NULLABLE = {"null": True, "blank": True}
 
@@ -9,6 +9,13 @@ class Category(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+    @classmethod
+    def truncate_table_restart_id(cls):
+        with connection.cursor() as cursor:
+            cursor.execute(
+                f"TRUNCATE TABLE {cls._meta.db_table} RESTART IDENTITY CASCADE"
+            )
 
     class Meta:
         verbose_name = "Категория"
@@ -35,11 +42,20 @@ class Product(models.Model):
         verbose_name="Категория",
         **NULLABLE,
         help_text="Введите название категории",
-        related_name='products'
+        related_name="products",
     )
-    price = models.IntegerField(verbose_name="Цена за покупку", help_text="Укажите цену")
+    price = models.IntegerField(
+        verbose_name="Цена за покупку", help_text="Укажите цену"
+    )
     created_at = models.DateField(verbose_name="Дата создания")
     updated_at = models.DateField(verbose_name="Дата последнего изменения")
+
+    @classmethod
+    def truncate_table_restart_id(cls):
+        with connection.cursor() as cursor:
+            cursor.execute(
+                f"TRUNCATE TABLE {cls._meta.db_table} RESTART IDENTITY CASCADE"
+            )
 
     def __str__(self):
         return f"{self.name}, цена: {self.price}, категория: {self.category_name}"
