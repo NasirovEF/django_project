@@ -1,1 +1,26 @@
-[{"model": "catalog.category", "pk": 1, "fields": {"name": "Ягоды", "description": "Растут на деревьях и кустах, в основном небольшого размера и вкусные"}}, {"model": "catalog.category", "pk": 2, "fields": {"name": "Фрукты", "description": "Растут на деревьях, содержат много витаминов"}}, {"model": "catalog.category", "pk": 3, "fields": {"name": "Овощи", "description": "Растут в огороде, зачастую не сладкие"}}]
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Ягоды",
+      "description": "Растут на деревьях и кустах, в основном небольшого размера и вкусные"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Фрукты",
+      "description": "Растут на деревьях, содержат много витаминов"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Овощи",
+      "description": "Растут в огороде, зачастую не сладкие"
+    }
+  }
+]

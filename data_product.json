@@ -5,11 +5,63 @@
     "fields": {
       "name": "Вишня",
       "description": "Круглая, красная ягода, растет на деревьях, очень сладкая",
-      "image": "",
+      "image": "product/вишня.jpg",
       "category_name": 1,
       "price": 120,
       "created_at": "2024-05-18",
       "updated_at": "2024-05-18"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "Огурец",
+      "description": "Зелёный, продолговатый, растет в огороде, не сладкий",
+      "image": "product/огурец.jpg",
+      "category_name": 3,
+      "price": 30,
+      "created_at": "2024-05-18",
+      "updated_at": "2024-05-18"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "Банан",
+      "description": "Желтый, продолговатый, растет на пальме, сладкий и питательный",
+      "image": "product/банан.jpg",
+      "category_name": 2,
+      "price": 70,
+      "created_at": "2024-05-18",
+      "updated_at": "2024-05-18"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "name": "Яблоко",
+      "description": "Сладкое, но может быть кислым, растет на дереве, бывает разных цветов: красные, желтые, зеленные.",
+      "image": "product/яблоко.jpg",
+      "category_name": 2,
+      "price": 50,
+      "created_at": "2024-05-19",
+      "updated_at": "2024-05-19"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+      "name": "Лук",
+      "description": "Острый овощ, многослойный, растет в земле в огороде, когда его разделываешь текут слезы",
+      "image": "product/лук.jpg",
+      "category_name": 3,
+      "price": 35,
+      "created_at": "2024-05-19",
+      "updated_at": "2024-05-19"
     }
   }
 ]
