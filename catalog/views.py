@@ -21,5 +21,18 @@ def contacts(request):
 
 def one_product(request, pk):
     product = Product.objects.get(pk=pk)
-    context = {"product": product}
+    # next_prod = Product.objects.get(pk=pk + 1)
+    products = Product.objects.all()
+    context = {"product": product,
+               "products": products,
+               }
     return render(request, "product.html", context)
+
+
+def add_product(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        phone = request.POST.get("phone")
+        message = request.POST.get("message")
+        print(f"{name} ({phone}): {message}")
+    return render(request, "add_prod.html")
