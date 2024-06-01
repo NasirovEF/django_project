@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'catalog/base.html' %}
 {% load my_tags %}
 {% block content %}
 
@@ -11,15 +11,15 @@
                 <div class="card-header">
                     <ul class="nav nav-pills card-header-pills">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'catalog:home' %}">Назад</a>
+                            <a class="nav-link active" href="{% url 'catalog:product_list' %}">Назад</a>
                         </li>
                     </ul>
                 </div>
                 <div class="card-body">
-                    <h1 class="card-title">{{ product.name }}</h1>
-                    <img src="{{ product.image | media_filter }}" class="rounded" width="250" height="180">
-                    <p class="card-text">{{ product.description }}</p>
-                    <h5 class="card-title pricing-card-title">{{ product.price }} руб.</h5>
+                    <h1 class="card-title">{{ object.name }}</h1>
+                    <img src="{{ object.image | media_filter }}" class="rounded" width="250" height="180">
+                    <p class="card-text">{{ object.description }}</p>
+                    <h5 class="card-title pricing-card-title">{{ object.price }} руб.</h5>
                     <a href="#" class="btn btn-primary">КУПИТЬ!</a>
                 </div>
             </div>

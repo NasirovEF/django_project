@@ -1,0 +1,31 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="row text-center">
+    {% for product in object_list %}
+    <div class="col-3 my-4">
+        <div class="card box-shadow h-100">
+            <div class="card-header">
+                <h3 class="my-0 font-weight-normal">{{ product.name }}</h3>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title pricing-card-title">{{ product.price }} руб.</h3>
+                <p class="card-text"> {{ product.description|slice_description }}
+                </p>
+
+            </div>
+            <div class="card-footer">
+                   <div class="btn-group p-auto" role="group" aria-label="Basic example">
+                    <a class="btn btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}"
+                       role="button">Подробнее</a>
+                    <a class="btn btn-outline-info" href="{% url 'catalog:product_update' product.pk %}"
+                       role="button">Изм</a>
+                    <a class="btn btn-outline-danger" href="{% url 'catalog:product_delete' product.pk %}"
+                       role="button">Удалить</a>
+                </div>
+                </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

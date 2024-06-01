@@ -7,7 +7,7 @@ register = template.Library()
 def media_filter(path):
     if path:
         return f"/media/{path}"
-    return "#"
+    return "/media/other/cameringo_20160125_150221.jpg"
 
 
 @register.filter()

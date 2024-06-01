@@ -1,13 +1,32 @@
 from django.shortcuts import render
-
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from catalog.models import Product
+from django.urls import reverse_lazy
 
 
-# Create your views here.
-def home(request):
-    products = Product.objects.all()
-    context = {"products": products}
-    return render(request, "home.html", context)
+class ProductListView(ListView):
+    model = Product
+
+
+class ProductDetailView(DetailView):
+    model = Product
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    fields = ('name', 'description', 'image', 'category_name', 'price', 'created_at', 'updated_at')
+    success_url = reverse_lazy('catalog:product_list')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields = ('name', 'description', 'image', 'category_name', 'price', 'created_at', 'updated_at')
+    success_url = reverse_lazy('catalog:product_list')
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:product_list')
 
 
 def contacts(request):
@@ -16,17 +35,7 @@ def contacts(request):
         phone = request.POST.get("phone")
         message = request.POST.get("message")
         print(f"{name} ({phone}): {message}")
-    return render(request, "contacts.html")
-
-
-def one_product(request, pk):
-    product = Product.objects.get(pk=pk)
-    # next_prod = Product.objects.get(pk=pk + 1)
-    products = Product.objects.all()
-    context = {"product": product,
-               "products": products,
-               }
-    return render(request, "product.html", context)
+    return render(request, "catalog/contacts.html")
 
 
 def add_product(request):
@@ -35,4 +44,4 @@ def add_product(request):
         phone = request.POST.get("phone")
         message = request.POST.get("message")
         print(f"{name} ({phone}): {message}")
-    return render(request, "add_prod.html")
+    return render(request, "product_form.html")

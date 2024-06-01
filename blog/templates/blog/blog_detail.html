@@ -1,0 +1,20 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+<a class="btn btn-outline-primary" href="{% url 'blog:blog_list' %}"
+   role="button">Назад</a>
+<div class="card text-center my-4">
+    <div class="text-center">
+        <img src="{{ object.image | media_filter }}" width="300" height="200">
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ object.heading }}</h5>
+        <p class="card-text">{{ object.text }}</p>
+        <a href="#" class="btn btn-primary">Опубликовать</a>
+    </div>
+    <div class="card-footer">
+        Количество просмотров {{ object.view_counter }}
+    </div>
+</div>
+
+{% endblock %}
