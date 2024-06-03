@@ -27,13 +27,11 @@ class BlogDetailView(DetailView):
 class BlogCreateView(CreateView):
     model = Blog
     fields = ('heading', 'slag_blog', 'text', 'image', 'create_date', 'published')
-    #success_url = reverse_lazy('blog:blog_list')
 
     def form_valid(self, form):
-        if form.is_valid():
-            new_blog = form.save()
-            new_blog.slag_blog = slugify(new_blog.heading)
-            new_blog.save()
+        new_blog = form.save()
+        new_blog.slag_blog = slugify(new_blog.heading)
+        new_blog.save()
         return super().form_valid(form)
 
     def get_success_url(self):

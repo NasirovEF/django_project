@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from catalog.models import Product
 from django.urls import reverse_lazy
+from django.views.generic.base import TemplateView
 
 
 class ProductListView(ListView):
@@ -29,19 +30,13 @@ class ProductDeleteView(DeleteView):
     success_url = reverse_lazy('catalog:product_list')
 
 
-def contacts(request):
-    if request.method == "POST":
+class ContactPageView(TemplateView):
+    template_name = "catalog/contacts.html"
+
+    def dispatch(self, request, *args, **kwargs):
         name = request.POST.get("name")
         phone = request.POST.get("phone")
         message = request.POST.get("message")
         print(f"{name} ({phone}): {message}")
-    return render(request, "catalog/contacts.html")
+        return render(request, "catalog/contacts.html")
 
-
-def add_product(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        phone = request.POST.get("phone")
-        message = request.POST.get("message")
-        print(f"{name} ({phone}): {message}")
-    return render(request, "product_form.html")
