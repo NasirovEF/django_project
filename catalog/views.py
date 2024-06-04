@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from catalog.models import Product
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
@@ -30,10 +30,12 @@ class ProductDeleteView(DeleteView):
     success_url = reverse_lazy('catalog:product_list')
 
 
-class ContactPageView(TemplateView):
-    template_name = "catalog/contacts.html"
+class ContactPageView(View):
 
-    def dispatch(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
+        return render(request, "catalog/contacts.html")
+
+    def post(self, request, *args, **kwargs):
         name = request.POST.get("name")
         phone = request.POST.get("phone")
         message = request.POST.get("message")
