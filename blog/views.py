@@ -26,7 +26,7 @@ class BlogDetailView(DetailView):
 
 class BlogCreateView(CreateView):
     model = Blog
-    fields = ('heading', 'slag_blog', 'text', 'image', 'create_date', 'published')
+    fields = ('heading', 'slag_blog', 'text', 'image', 'published')
 
     def form_valid(self, form):
         new_blog = form.save()
@@ -35,12 +35,12 @@ class BlogCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('blog:blog_detail', args=[self.kwargs['pk']])
+        return reverse('blog:blog_detail', args=[self.object.pk])
 
 
 class BlogUpdateView(UpdateView):
     model = Blog
-    fields = ('heading', 'slag_blog', 'text', 'image', 'create_date', 'published')
+    fields = ('heading', 'slag_blog', 'text', 'image', 'published')
     success_url = reverse_lazy('blog:blog_list')
 
     def form_valid(self, form):
@@ -51,7 +51,7 @@ class BlogUpdateView(UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('blog:blog_detail', args=[self.kwargs['pk']])
+        return reverse('blog:blog_detail', args=[self.object.pk])
 
 
 class BlogDeleteView(DeleteView):
