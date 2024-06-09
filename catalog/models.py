@@ -47,7 +47,7 @@ class Product(models.Model):
     price = models.IntegerField(
         verbose_name="Цена за покупку", help_text="Укажите цену"
     )
-    created_at = models.DateField(verbose_name="Дата создания")
+    created_at = models.DateField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateField(verbose_name="Дата последнего изменения")
 
     @classmethod
@@ -64,3 +64,4 @@ class Product(models.Model):
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         ordering = ["name", "category_name"]
+
