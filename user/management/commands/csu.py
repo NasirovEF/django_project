@@ -1,6 +1,7 @@
 from django.core.management import BaseCommand
 from user.models import User
 
+
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
@@ -9,7 +10,7 @@ class Command(BaseCommand):
             is_superuser=True,
             is_staff=True,
             phone_number="1234567890",
-            country="Russia"
+            country="Russia",
         )
 
         user.set_password("123456")

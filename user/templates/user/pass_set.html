@@ -2,13 +2,13 @@
 {% load my_tags %}
 {% block content %}
 <div class="row">
-    <div class="col-4">
+    <div class="col-3">
     </div>
-    <div class="col-4">
+    <div class="col-6">
         <form method="post" enctype="multipart/form-data">
             <div class="card">
                 <div class="card-header text-center">
-                    Авторизация
+                    Создание нового пароля
                 </div>
                 <div class="card-body">
                     {% csrf_token %}
@@ -16,19 +16,13 @@
                 </div>
                 <div class="card-footer text-center">
                     <button type="submit" class="btn btn-outline-primary">
-                        Войти
+                        Отправить
                     </button>
-                    <a class="btn btn-outline-primary" href="{% url 'user:reset-password' %}">
-                        Забыл пароль
-                    </a>
-                    <a class="btn btn-outline-primary" href="{% url 'user:registration' %}">
-                        Регистрация
-                    </a>
                 </div>
             </div>
         </form>
     </div>
-    <div class="col-4">
+    <div class="col-3">
     </div>
 </div>
 {% endblock %}

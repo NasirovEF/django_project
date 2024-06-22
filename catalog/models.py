@@ -1,5 +1,7 @@
 from django.db import models, connection
 
+from user.models import User
+
 NULLABLE = {"null": True, "blank": True}
 
 
@@ -49,6 +51,13 @@ class Product(models.Model):
     )
     created_at = models.DateField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateField(verbose_name="Дата последнего изменения")
+    created_user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        verbose_name="Пользователь",
+        related_name="products",
+        **NULLABLE,
+    )
 
     @classmethod
     def truncate_table_restart_id(cls):
@@ -83,4 +92,3 @@ class Version(models.Model):
     class Meta:
         verbose_name = "Версия продукта"
         verbose_name_plural = "Версии продуктов"
-

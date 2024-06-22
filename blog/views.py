@@ -1,5 +1,11 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 from blog.models import Blog
 from django.urls import reverse_lazy, reverse
 from pytils.translit import slugify
@@ -24,9 +30,9 @@ class BlogDetailView(DetailView):
         return self.object
 
 
-class BlogCreateView(CreateView):
+class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Blog
-    fields = ('heading', 'slag_blog', 'text', 'image', 'published')
+    fields = ("heading", "slag_blog", "text", "image", "published")
 
     def form_valid(self, form):
         new_blog = form.save()
@@ -35,13 +41,13 @@ class BlogCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('blog:blog_detail', args=[self.object.pk])
+        return reverse("blog:blog_detail", args=[self.object.pk])
 
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(LoginRequiredMixin, UpdateView):
     model = Blog
-    fields = ('heading', 'slag_blog', 'text', 'image', 'published')
-    success_url = reverse_lazy('blog:blog_list')
+    fields = ("heading", "slag_blog", "text", "image", "published")
+    success_url = reverse_lazy("blog:blog_list")
 
     def form_valid(self, form):
         if form.is_valid():
@@ -51,9 +57,9 @@ class BlogUpdateView(UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('blog:blog_detail', args=[self.object.pk])
+        return reverse("blog:blog_detail", args=[self.object.pk])
 
 
-class BlogDeleteView(DeleteView):
+class BlogDeleteView(LoginRequiredMixin, DeleteView):
     model = Blog
-    success_url = reverse_lazy('blog:blog_list')
+    success_url = reverse_lazy("blog:blog_list")

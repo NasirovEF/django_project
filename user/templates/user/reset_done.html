@@ -1,0 +1,27 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="row">
+    <div class="col-4">
+    </div>
+    <div class="col-4">
+        <form method="post" enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-header text-center">
+                    Сброс пароля
+                </div>
+                <div class="card-body">
+                    <p class="text-center">
+                        Инструкция по сбросу пароля направлена на указанную почту.
+                    </p>
+                </div>
+                <div class="card-footer text-center">
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-4">
+    </div>
+</div>
+{% endblock %}

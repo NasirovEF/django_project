@@ -1,6 +1,9 @@
 {% extends 'catalog/base.html' %}
 {% load my_tags %}
 {% block content %}
+{% if user.is_authenticated %}
+<a class="btn btn-outline-primary" href="{% url 'catalog:product_form' %}">Добавить продукт</a>
+{% endif %}
 <div class="row text-center">
     {% for product in object_list %}
     <div class="col-3 my-4">
@@ -24,10 +27,12 @@
                    <div class="btn-group p-auto" role="group" aria-label="Basic example">
                     <a class="btn btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}"
                        role="button">Подробнее</a>
+                       {% if user.is_authenticated %}
                     <a class="btn btn-outline-info" href="{% url 'catalog:product_update' product.pk %}"
                        role="button">Изм</a>
                     <a class="btn btn-outline-danger" href="{% url 'catalog:product_delete' product.pk %}"
                        role="button">Удалить</a>
+                       {% endif %}
                 </div>
                 </div>
         </div>

@@ -8,21 +8,16 @@
         <form method="post" enctype="multipart/form-data">
             <div class="card">
                 <div class="card-header text-center">
-                    Авторизация
+                    Создание нового пароля
                 </div>
                 <div class="card-body">
-                    {% csrf_token %}
-                    {{ form.as_p }}
+                    <p class="text-center">
+                        Пароль успешно изменен!
+                    </p>
                 </div>
                 <div class="card-footer text-center">
-                    <button type="submit" class="btn btn-outline-primary">
-                        Войти
-                    </button>
-                    <a class="btn btn-outline-primary" href="{% url 'user:reset-password' %}">
-                        Забыл пароль
-                    </a>
-                    <a class="btn btn-outline-primary" href="{% url 'user:registration' %}">
-                        Регистрация
+                    <a class="btn btn-outline-primary" href="{% url 'user:login' %}">
+                        Закрыть
                     </a>
                 </div>
             </div>
