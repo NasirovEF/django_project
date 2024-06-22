@@ -1,11 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.mail import send_mail
 from django.contrib.auth.views import (
     LoginView,
     PasswordResetView,
-    PasswordResetDoneView,
-    PasswordResetConfirmView,
-    PasswordResetCompleteView,
+    PasswordChangeView,
 )
 from django.urls import reverse_lazy, reverse
 
@@ -14,9 +12,9 @@ from user.forms import (
     UserLoginViewForm,
     UserRegisterForm,
     UserUpdateForm,
-    UserPasswordResetForm,
-    UserSetPasswordForm,
+    UserPasswordResetForm, UserPasswordChangeForm,
 )
+from user.fuctions.random_password import add_password
 from user.models import User
 from django.views.generic import CreateView, DetailView, UpdateView
 import secrets
@@ -73,9 +71,25 @@ class UserUpdateView(UpdateView):
 
 class UserPasswordResetView(PasswordResetView):
     form_class = UserPasswordResetForm
-    success_url = reverse_lazy("user:reset_done")
+
+    def form_valid(self, form):
+        user = User.objects.get(email=self.request.POST.get('email'))
+        user_password = add_password()
+        user.set_password(user_password)
+        user.save()
+        send_mail(
+            subject=f"Новый пароль для {User.objects.get(email=user.email)}",
+            message=f"Для входа в аккаунт используйте пароль: {user_password}",
+            from_email=EMAIL_HOST_USER,
+            recipient_list=[user.email],
+        )
+
+        return redirect(reverse("user:reset-complete"))
 
 
-class UserPasswordResetConfirmView(PasswordResetConfirmView):
-    form_class = UserSetPasswordForm
-    success_url = reverse_lazy("user:reset-completed")
+class UserPasswordChangeView(PasswordChangeView):
+    model = User
+    form_class = UserPasswordChangeForm
+
+    def get_success_url(self):
+        return reverse("user:login")

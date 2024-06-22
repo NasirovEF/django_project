@@ -6,12 +6,10 @@ from user.views import (
     account_activate,
     UserDetailView,
     UserUpdateView,
-    UserPasswordResetView,
-    UserPasswordResetConfirmView,
+    UserPasswordResetView, UserPasswordChangeView,
 )
 from django.contrib.auth.views import (
     LogoutView,
-    PasswordResetCompleteView,
     PasswordResetDoneView,
 )
 
@@ -30,23 +28,17 @@ urlpatterns = [
         "reset-password/",
         UserPasswordResetView.as_view(
             template_name="user/reset_pass.html",
-            email_template_name="user/password_reset_email.html",
         ),
         name="reset-password",
     ),
     path(
-        "reset-dan",
-        PasswordResetDoneView.as_view(template_name="user/reset_done.html"),
-        name="reset_done",
+        "reset-complete/",
+        PasswordResetDoneView.as_view(template_name="user/reset_complete.html"),
+        name="reset-complete",
     ),
     path(
-        "reset-confirm/<str:uidb64>,<str:token>",
-        UserPasswordResetConfirmView.as_view(template_name="user/pass_set.html"),
-        name="reset-confirm",
-    ),
-    path(
-        "reset-completed/",
-        PasswordResetCompleteView.as_view(template_name="user/reset_complete.html"),
-        name="reset-completed",
+        "pass_change/<int:pk>",
+        UserPasswordChangeView.as_view(template_name="user/pass_change.html"),
+        name="pass_change",
     ),
 ]

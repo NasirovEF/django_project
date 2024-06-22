@@ -3,8 +3,7 @@ from catalog.forms import StileFormMixin
 from django.contrib.auth.forms import (
     UserCreationForm,
     AuthenticationForm,
-    PasswordResetForm,
-    SetPasswordForm,
+    PasswordResetForm, PasswordChangeForm,
 )
 from user.models import User
 
@@ -32,10 +31,7 @@ class UserPasswordResetForm(StileFormMixin, PasswordResetForm):
         fields = ("email",)
 
 
-class UserSetPasswordForm(StileFormMixin, SetPasswordForm):
+class UserPasswordChangeForm(StileFormMixin, PasswordChangeForm):
     class Meta:
         model = User
-        fields = (
-            "new_password1",
-            "new_password2",
-        )
+        fields = ("old_password", "new_password1", "new_password2")

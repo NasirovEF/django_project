@@ -2,26 +2,27 @@
 {% load my_tags %}
 {% block content %}
 <div class="row">
-    <div class="col-4">
+    <div class="col-3">
     </div>
-    <div class="col-4">
+    <div class="col-6">
         <form method="post" enctype="multipart/form-data">
             <div class="card">
                 <div class="card-header text-center">
-                    Сброс пароля
+                    Создание нового пароля
                 </div>
                 <div class="card-body">
-                    <p class="text-center">
-                        Инструкция по сбросу пароля направлена на указанную почту.
-                    </p>
+                    {% csrf_token %}
+                    {{ form.as_p }}
                 </div>
                 <div class="card-footer text-center">
-
+                    <button type="submit" class="btn btn-outline-primary">
+                        Сохранить
+                    </button>
                 </div>
             </div>
         </form>
     </div>
-    <div class="col-4">
+    <div class="col-3">
     </div>
 </div>
 {% endblock %}
