@@ -42,3 +42,10 @@ class VersionForm(StileFormMixin, forms.ModelForm):
     class Meta:
         model = Version
         fields = "__all__"
+
+    # def clean_data(self):
+    #     cleaned_data = self.cleaned_data.get("indication")
+    #     if cleaned_data and len(Product.objects.filter(ver))
+    #
+    #             raise forms.ValidationError("Нельзя использовать запрещенные слова")
+    #     return cleaned_data

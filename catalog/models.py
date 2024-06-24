@@ -80,7 +80,7 @@ class Version(models.Model):
         Product,
         on_delete=models.CASCADE,
         verbose_name="Продукт",
-        related_name="product",
+        related_name="versions",
     )
     version = models.PositiveIntegerField(verbose_name="Номер версии")
     name = models.CharField(max_length=150, verbose_name="Название версии")

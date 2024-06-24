@@ -15,8 +15,8 @@
                 <h3 class="card-title pricing-card-title">{{ product.price }} руб.</h3>
                 <p class="card-text"> {{ product.description|slice_description }}
                 </p>
-                {% if product.product.all %}
-                {% for version in product.product.all %}
+                {% if product.versions.all %}
+                {% for version in product.versions.all %}
                 {% if version.indication == True %}
                 <h6 class="card-title pricing-card-title">{{ version }}</h6>
                 {% endif %}
