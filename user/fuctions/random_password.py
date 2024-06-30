@@ -18,7 +18,12 @@ def add_password():
     rand_digit = random.choice(DIGITS)
     rand_symbol = random.choice(SYMBOLS)
 
-    temp_pwd = random.sample(combined_list, pwd_length - 4) + [rand_upper, rand_lower, rand_digit, rand_symbol]
+    temp_pwd = random.sample(combined_list, pwd_length - 4) + [
+        rand_upper,
+        rand_lower,
+        rand_digit,
+        rand_symbol,
+    ]
     random.shuffle(temp_pwd)
     password = "".join(temp_pwd)
     return password

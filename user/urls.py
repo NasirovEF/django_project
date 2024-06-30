@@ -6,7 +6,8 @@ from user.views import (
     account_activate,
     UserDetailView,
     UserUpdateView,
-    UserPasswordResetView, UserPasswordChangeView,
+    UserPasswordResetView,
+    UserPasswordChangeView,
 )
 from django.contrib.auth.views import (
     LogoutView,

@@ -27,7 +27,7 @@
                    <div class="btn-group p-auto" role="group" aria-label="Basic example">
                     <a class="btn btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}"
                        role="button">Подробнее</a>
-                       {% if user.is_authenticated %}
+                       {% if user == product.created_user or user.is_superuser %}
                     <a class="btn btn-outline-info" href="{% url 'catalog:product_update' product.pk %}"
                        role="button">Изм</a>
                     <a class="btn btn-outline-danger" href="{% url 'catalog:product_delete' product.pk %}"

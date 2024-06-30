@@ -3,7 +3,8 @@ from catalog.forms import StileFormMixin
 from django.contrib.auth.forms import (
     UserCreationForm,
     AuthenticationForm,
-    PasswordResetForm, PasswordChangeForm,
+    PasswordResetForm,
+    PasswordChangeForm,
 )
 from user.models import User
 

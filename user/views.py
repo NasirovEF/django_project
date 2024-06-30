@@ -12,7 +12,8 @@ from user.forms import (
     UserLoginViewForm,
     UserRegisterForm,
     UserUpdateForm,
-    UserPasswordResetForm, UserPasswordChangeForm,
+    UserPasswordResetForm,
+    UserPasswordChangeForm,
 )
 from user.fuctions.random_password import add_password
 from user.models import User
@@ -73,7 +74,7 @@ class UserPasswordResetView(PasswordResetView):
     form_class = UserPasswordResetForm
 
     def form_valid(self, form):
-        user = User.objects.get(email=self.request.POST.get('email'))
+        user = User.objects.get(email=self.request.POST.get("email"))
         user_password = add_password()
         user.set_password(user_password)
         user.save()

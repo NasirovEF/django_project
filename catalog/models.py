@@ -58,6 +58,7 @@ class Product(models.Model):
         related_name="products",
         **NULLABLE,
     )
+    is_published = models.BooleanField(verbose_name="Статус публикации", default=False)
 
     @classmethod
     def truncate_table_restart_id(cls):
@@ -73,6 +74,11 @@ class Product(models.Model):
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         ordering = ["name", "category_name"]
+        permissions = [
+            ("сan_published", "Может изменять статус публикации продукта"),
+            ("сan_edit_description", "Может изменять описание продукта"),
+            ("сan_edit_category", "Может изменять категорию продукта"),
+        ]
 
 
 class Version(models.Model):

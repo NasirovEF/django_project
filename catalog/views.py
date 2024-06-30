@@ -7,16 +7,30 @@ from django.views.generic import (
     DeleteView,
     View,
 )
+from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from catalog.models import Product, Version
 from django.urls import reverse_lazy, reverse
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 class ProductListView(LoginRequiredMixin, ListView):
     model = Product
     login_url = "user:login"
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        user = self.request.user
+        if (
+                user.has_perm("catalog.сan_published")
+                and user.has_perm("catalog.сan_edit_description")
+                and user.has_perm("catalog.сan_edit_category")
+        ) or user.is_superuser:
+            queryset = queryset.all()
+        else:
+            queryset = queryset.filter(is_published=True)
+        return queryset
 
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
@@ -38,9 +52,10 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
+    permission_required = "catalog.change_product"
 
     def get_success_url(self):
         return reverse("catalog:product_detail", args=[self.object.pk])
@@ -67,6 +82,18 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             formset.save()
 
         return super().form_valid(form)
+
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.created_user or user.is_superuser:
+            return ProductForm
+        if (
+            user.has_perm("catalog.сan_published")
+            and user.has_perm("catalog.сan_edit_description")
+            and user.has_perm("catalog.сan_edit_category")
+        ):
+            return ProductModeratorForm
+        raise PermissionDenied
 
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
