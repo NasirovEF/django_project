@@ -10,9 +10,11 @@ from django.views.generic import (
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+
+from catalog.services import get_category_from_cache
 
 
 class ProductListView(LoginRequiredMixin, ListView):
@@ -112,3 +114,10 @@ class ContactPageView(View):
         message = request.POST.get("message")
         print(f"{name} ({phone}): {message}")
         return render(request, "catalog/contacts.html")
+
+
+class CategoryListView(ListView):
+    model = Category
+
+    def get_queryset(self, *args, **kwargs):
+        return get_category_from_cache()
